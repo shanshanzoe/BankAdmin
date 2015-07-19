@@ -16,14 +16,13 @@ BankApp.UserProfiles = function UserProfiles(username, password){
 
 }
 
-BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile){
+BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile, customerId){
     this.FirstName=firstName;
     this.LastName=lastName;
     this.Email=email;
     this.Gender=gender;
     this.Mobile=mobile;
-    this.UserInfoId=index;
-    index++;
+    this.UserInfoId=customerId;
 
 }
 
@@ -47,15 +46,18 @@ BankApp.BankAdmin= function BankAdmin(){
     function init(){
         var Admin = new BankApp.UserProfiles("Admin", "Admin",0);
         userProfiles.push(Admin);
-        var AdminInfo=new BankApp.UserInfo("Shanshan", "Gao", "xiaosszoe@gmail.com", "F", "2152904505");
+        var AdminInfo=new BankApp.UserInfo("Shanshan", "Gao", "xiaosszoe@gmail.com", "F", "2152904505",index);
         customerInfos.push(AdminInfo);
+        index++;
 
     }
     init();
 
     this.addNew=function(userProfile){
         userProfiles.push(userProfile);
-
+        var info = new BankApp.UserInfo("","","","","",index);
+        customerInfos.push(info);
+        index++;
         //var userInfo = new BankApp.UserInfo("","","","","",index);
         //customerInfos.push(userInfo);
         // I love you baby!!!!!!!!!
@@ -63,28 +65,6 @@ BankApp.BankAdmin= function BankAdmin(){
         //customerInfos.push(customerInfo);
     }
 
-    this.getInfo= function(customerId){
-        for(var i=0;i<customerInfos.length;i++){
-            console.log(customerInfos.length);
-            if(customerInfos[i].CustomerId==customerId){
-                return customerInfos[i];
-            }
-        }
-    }
-
-    this.updateInfo= function (customerId, userInfo){
-        var count=0;
-        for(var i=0; i <customerInfos.length;i++){
-            if(customerInfos[i].CustomerId==customerId) {
-                customerInfos[i] = userInfo;
-                break;
-            }
-        }
-        //if(count==customerInfos.length-1){
-        //    customerInfos.push(userInfo);
-        //}
-
-    }
 
     this.deleteItem = function(customerId){
         var userProfile=null;
@@ -106,6 +86,12 @@ BankApp.BankAdmin= function BankAdmin(){
     this.getCustomers = function(){
         return userProfiles;
     }
+
+    this.getCustomerInfos=function(){
+        return customerInfos;
+    }
+
+
 }
 
 

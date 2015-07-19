@@ -36,20 +36,17 @@
         //edit button
         function editItem(customerId){
             showEditPanel();
-            console.log(customerId);
+            //console.log(customerId);
 
-            var userInfos= bankAdmin.
-            for()
-
-            var userInfo=bankAdmin.getInfo(customerId);
             tempIndex=customerId;
-            console.log(userInfo.FirstName);
+            var userInfos= bankAdmin.getCustomerInfos();
 
-            document.getElementById("text_firstName").value=userInfo.FirstName;
-            document.getElementById("text_lastName").value=userInfo.LastName;
-            document.getElementById("text_email").value = userInfo.Email;
-            document.getElementById("text_gender").value=userInfo.Gender;
-            document.getElementById("text_mobile").value=userInfo.Mobile;
+
+            document.getElementById("text_firstName").value=userInfos[customerId].FirstName;
+            document.getElementById("text_lastName").value=userInfos[customerId].LastName;
+            document.getElementById("text_email").value = userInfos[customerId].Email;
+            document.getElementById("text_gender").value=userInfos[customerId].Gender;
+            document.getElementById("text_mobile").value=userInfos[customerId].Mobile;
 
         }
 
@@ -108,16 +105,17 @@
 
         function updateInfo(){
 
-            console.log("test");
+            //console.log("test");
             var firstName=document.getElementById("text_firstName").value;
             var lastName=document.getElementById("text_lastName").value;
             var email=document.getElementById("text_email").value;
             var gender=document.getElementById("text_gender").value;
             var mobile=document.getElementById("text_mobile").value;
 
-            console.log("from updateInfo: "+firstName);
+            //console.log("from updateInfo: "+firstName);
             var userInfo=new BankApp.UserInfo(firstName,lastName,email,gender,mobile,tempIndex);
-            bankAdmin.updateInfo(tempIndex,userInfo);
+            var userInfos= bankAdmin.getCustomerInfos();
+            userInfos[tempIndex]=userInfo;
 
             clearForm();
             closeForm();
