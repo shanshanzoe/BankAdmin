@@ -2,26 +2,28 @@
  * Created by shanshan on 7/17/15.
  */
 var BankApp={};//class
-var CustomerId=0;
-//var index=0;
+//var CustomerId=0;
+var index=0;
 
 
 
 BankApp.UserProfiles = function UserProfiles(username, password){
     this.Username=username;
     this.Password=password;
-    CustomerId++;
+    this.CustomerId = index;
+    //CustomerId++;
     //index++;
 
 }
 
-BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile, customerId){
+BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile){
     this.FirstName=firstName;
     this.LastName=lastName;
     this.Email=email;
     this.Gender=gender;
     this.Mobile=mobile;
-    CustomerId=customerId;
+    this.UserInfoId=index;
+    index++;
 
 }
 
@@ -44,8 +46,9 @@ BankApp.BankAdmin= function BankAdmin(){
 
     function init(){
         var Admin = new BankApp.UserProfiles("Admin", "Admin",0);
-        BankApp.get
         userProfiles.push(Admin);
+        var AdminInfo=new BankApp.UserInfo("Shanshan", "Gao", "xiaosszoe@gmail.com", "F", "2152904505");
+        customerInfos.push(AdminInfo);
 
     }
     init();

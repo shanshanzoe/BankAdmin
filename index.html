@@ -6,18 +6,30 @@
     <script src="jquery-1.11.3.min.js"></script>
     <script src="jquery-ui.min.js"></script>
     <script src="prototype.js"></script>
+    <script src="bank.js"></script>
+
     <script>
+
+        var bankAdmin = new BankApp.BankAdmin();
+
         function validateUser(){
+            console.log("w");
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
 
-            if (username =="Admin"&& password=="Admin"){
-                sessionStorage["username"]=username;
+            var userprofiles = bankAdmin.getCustomers();
+            var admin_username= userprofiles[0].Username;
+            var admin_password = userprofiles[0].Password;
+            console.log(admin_password,admin_username);
+
+            if(username==admin_username&&password==admin_password){
                 location.href="homepage.html";
-            }else{
-                document.getElementById("message").innerHTML="Invalid Credentials";
             }
-        }
+
+            
+            }
+
+
 
     </script>
 </head>
