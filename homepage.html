@@ -12,7 +12,7 @@
 
         window.onload=function(){
             document.getElementById("formpanel").style.display="none";
-
+            document.getElementById("editPanel").style.display="none";
 
             var userprofiles = bankAdmin.getCustomers();
             loadgrid(userprofiles);
@@ -20,6 +20,7 @@
 
         }
 
+        //delete button
         function deleteItem(customerId){
             bankAdmin.deleteItem(customerId);
             clearForm();
@@ -27,14 +28,32 @@
             loadgrid(bankAdmin.getCustomers());
         }
 
+
+        //edit button
+        function editItem(customerId){
+            showEditPanel();
+
+            document.getElementById("text_firstName").style.value="";
+
+
+        }
+
         function showForm(){
             document.getElementById("gridpanel").style.display="none";
             document.getElementById("formpanel").style.display="block";
+            document.getElementById("editPanel").style.display="none";
+        }
+
+        function showEditPanel(){
+            document.getElementById("gridpanel").style.display="none";
+            document.getElementById("formpanel").style.display="none";
+            document.getElementById("editPanel").style.display="block";
         }
 
         function closeForm(){
             document.getElementById("gridpanel").style.display="block";
             document.getElementById("formpanel").style.display="none";
+            document.getElementById("editPanel").style.display="none";
         }
 
         function clearForm(){
@@ -47,7 +66,7 @@
             if(userprofiles.length>0) {
                 var table = "<table><tr><th>Id</th><th>Username</th><th>Password</th><th>Action</th></tr>";
                 userprofiles.forEach(function(entry){
-                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)'>Edit</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
+                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)' onclick='editItem(" + entry.CustomerId + ")'>Edit</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
                 });
                 table+="</table>";
                 document.getElementById("grid").innerHTML = table;
@@ -62,6 +81,7 @@
             var password=document.getElementById("txtpassword").value;
 
             var userProfiles = new BankApp.UserProfiles(username,password);
+
             console.log(userProfiles);
 
             bankAdmin.addNew(userProfiles);
@@ -113,6 +133,42 @@
 
     </form>
 
+</div>
+
+<div id = "editPanel">
+    <form>
+        <div>
+            <label>First Name: </label>
+            <input type="text" id="text_firstName">
+        </div>
+
+        <div>
+            <label>Last Name: </label>
+            <input type="text" id="text_lastName">
+        </div>
+
+        <div>
+            <label>Email: </label>
+            <input type="text" id="text_email">
+        </div>
+
+        <div>
+            <label>Gender: </label>
+            <input type="text" id="text_gender">
+        </div>
+
+
+        <div>
+            <label>Mobile: </label>
+            <input type="text" id="text_mobile">
+        </div>
+
+        <div id="updateInfo">
+            <button type="button" onclick="updateInfo()">Update Info</button>
+            <button type="button" onclick="closeForm()">Cancel</button>
+        </div>
+
+    </form>
 </div>
 
 

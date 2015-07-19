@@ -16,12 +16,14 @@ BankApp.UserProfiles = function UserProfiles(username, password){
 
 }
 
-BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile){
+BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile, customerId){
     this.FirstName=firstName;
     this.LastName=lastName;
     this.Email=email;
     this.Gender=gender;
     this.Mobile=mobile;
+    this.UserId=customerId;
+
 }
 
 BankApp.Accounts= function Accounts(saving, checking){
@@ -47,10 +49,12 @@ BankApp.BankAdmin= function BankAdmin(){
     }
     init();
 
-    this.addNew=function(userProfile, customerInfo){
+    this.addNew=function(userProfile){
         userProfiles.push(userProfile);
-        customerInfos.push(customerInfo);
+        customerInfos.push(new UserInfo());
+        //customerInfos.push(customerInfo);
     }
+
 
     this.deleteItem = function(customerId){
         var userProfile=null;
