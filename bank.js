@@ -5,6 +5,7 @@ var BankApp={};//class
 var CustomerId;
 
 
+
 BankApp.UserProfiles = function UserProfiles(username, password, customerId){
     this.Username=username;
     this.Password=password;
@@ -37,9 +38,10 @@ BankApp.BankAdmin= function BankAdmin(){
     var accountDetails=[];
 
     function init(){
-        var managerAdmin = new UserProfiles("Admin", "Admin",0);
-        userProfile.push(managerAdmin);
+        var Admin = new BankApp.UserProfiles("Admin", "Admin",0);
+        userProfiles.push(Admin);
     }
+    init();
 
     this.addNew=function(userProfile, customerInfo){
         userProfiles.push(userProfile);
@@ -50,6 +52,9 @@ BankApp.BankAdmin= function BankAdmin(){
         accountDetails.push(checking);
         accountDetails.push(saving);
 
+    }
+    this.getCustomers = function(){
+        return userProfiles;
     }
 }
 
@@ -69,10 +74,11 @@ BankApp.Customer = function Customer(){
     }
 
 
+
 BankApp.Common = function Common (){
 
 
-
-
 }
+
+
 }
