@@ -17,16 +17,29 @@
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
 
-            var userprofiles = bankAdmin.getCustomers();
-            var admin_username= userprofiles[0].Username;
-            var admin_password = userprofiles[0].Password;
+
+           // var profiles=JSON.parse(localStorage["userProfiles"]);
+            var profiles=bankAdmin.getCustomers();
+
+
+            for(var i=0;i<profiles.length;i++){
+                var admin_username= profiles[i].Username;
+                var admin_password = profiles[i].Password;
+                if(username==admin_username&&password==admin_password){
+                    if(i==0)
+                    location.href="homepage.html";
+                    else
+                    location.href="customerhomepage.html";
+
+                    break;
+                }else{
+                    alert("username or password error!");
+                }
+            }
+
             console.log(admin_password,admin_username);
 
-            if(username==admin_username&&password==admin_password){
-                location.href="homepage.html";
-            }else{
-                alert("username or password error!");
-            }
+
 
             
             }

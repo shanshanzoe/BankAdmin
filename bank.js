@@ -43,6 +43,8 @@ BankApp.BankAdmin= function BankAdmin(){
     var customerInfos=[];
     var accountDetails=[];
 
+
+
     function init(){
         var Admin = new BankApp.UserProfiles("Admin", "Admin",0);
         userProfiles.push(Admin);
@@ -51,13 +53,27 @@ BankApp.BankAdmin= function BankAdmin(){
         index++;
 
     }
-    init();
+
+    if(localStorage["userProfiles"]==null||localStorage["userProfiles"]==undefined){
+        init();
+        var userprofiles = bankAdmin.getCustomers();
+        localStorage["userProfiles"]=JSON.stringify(userprofiles);
+        var userInfos = bankAdmin.getCustomerInfos();
+        localStorage["userInfos"]=JSON.stringify(userInfos);
+    }else{
+        userProfiles=JSON.parse(localStorage["userProfiles"]);
+        customerInfos=JSON.parse(localStorage["userInfos"]);
+        index=userProfiles.length;
+    }
 
     this.addNew=function(userProfile){
         userProfiles.push(userProfile);
         var info = new BankApp.UserInfo("","","","","",index);
         customerInfos.push(info);
         index++;
+        localStorage["userProfiles"]=JSON.stringify(userProfiles);
+        localStorage["userInfos"]=JSON.stringify(customerInfos);
+
         //var userInfo = new BankApp.UserInfo("","","","","",index);
         //customerInfos.push(userInfo);
         // I love you baby!!!!!!!!!
@@ -76,6 +92,8 @@ BankApp.BankAdmin= function BankAdmin(){
                 break;
             }
         }
+        localStorage["userProfiles"]=JSON.stringify(userProfile);
+
     }
 
     this.createAccounts=function(checking, saving){

@@ -10,15 +10,16 @@
     <script>
         var bankAdmin = new BankApp.BankAdmin();
 
+
         var tempIndex;
 
         window.onload=function(){
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="none";
 
-            var userprofiles = bankAdmin.getCustomers();
+            var userProfiles = bankAdmin.getCustomers();
 
-            loadgrid(userprofiles);
+            loadgrid(userProfiles);
             CustomerId++;
 
 
@@ -36,7 +37,7 @@
         //edit button
         function editItem(customerId){
             showEditPanel();
-            //console.log(customerId);
+            console.log(customerId);
 
             tempIndex=customerId;
             var userInfos= bankAdmin.getCustomerInfos();
@@ -78,7 +79,7 @@
             if(userprofiles.length>0) {
                 var table = "<table><tr><th>Id</th><th>Username</th><th>Password</th><th>Action</th></tr>";
                 userprofiles.forEach(function(entry){
-                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)' onclick='editItem(" + entry.CustomerId + ")'>Edit</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
+                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)' onclick='editItem(" + entry.CustomerId + ")'>C-U Info</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
                 });
                 table+="</table>";
                 document.getElementById("grid").innerHTML = table;
@@ -116,6 +117,8 @@
             var userInfo=new BankApp.UserInfo(firstName,lastName,email,gender,mobile,tempIndex);
             var userInfos= bankAdmin.getCustomerInfos();
             userInfos[tempIndex]=userInfo;
+
+            localStorage["userInfos"]=JSON.stringify(userInfos);
 
             clearForm();
             closeForm();
