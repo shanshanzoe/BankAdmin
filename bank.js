@@ -51,12 +51,35 @@ BankApp.BankAdmin= function BankAdmin(){
 
     this.addNew=function(userProfile){
         userProfiles.push(userProfile);
+        var userInfo = new BankApp.UserInfo("","","","","",index);
+        customerInfos.push(userInfo);
         // I love you baby!!!!!!!!!
         // I love you!
-        customerInfos.push(new UserInfo());
         //customerInfos.push(customerInfo);
     }
 
+    this.getInfo= function(customerId){
+        for(var i=0;i<customerInfos.length;i++){
+            console.log(customerInfos.length);
+            if(customerInfos[i].CustomerId==customerId){
+                return customerInfos[i];
+            }
+        }
+    }
+
+    this.updateInfo= function (customerId, userInfo){
+        var count=0;
+        for(var i=0; i <customerInfos.length;i++){
+            if(customerInfos[i].CustomerId==customerId) {
+                customerInfos[i] = userInfo;
+                break;
+            }
+        }
+        //if(count==customerInfos.length-1){
+        //    customerInfos.push(userInfo);
+        //}
+
+    }
 
     this.deleteItem = function(customerId){
         var userProfile=null;

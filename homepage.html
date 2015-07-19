@@ -10,6 +10,8 @@
     <script>
         var bankAdmin = new BankApp.BankAdmin();
 
+        var tempIndex;
+
         window.onload=function(){
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="none";
@@ -32,9 +34,20 @@
         //edit button
         function editItem(customerId){
             showEditPanel();
+            console.log(customerId);
 
-            document.getElementById("text_firstName").style.value="";
+            var userInfos= bankAdmin.
+            for()
 
+            var userInfo=bankAdmin.getInfo(customerId);
+            tempIndex=customerId;
+            console.log(userInfo.FirstName);
+
+            document.getElementById("text_firstName").value=userInfo.FirstName;
+            document.getElementById("text_lastName").value=userInfo.LastName;
+            document.getElementById("text_email").value = userInfo.Email;
+            document.getElementById("text_gender").value=userInfo.Gender;
+            document.getElementById("text_mobile").value=userInfo.Mobile;
 
         }
 
@@ -89,12 +102,25 @@
             closeForm();
             loadgrid(bankAdmin.getCustomers());
 
-
-
-
-
         }
 
+        function updateInfo(){
+
+            console.log("test");
+            var firstName=document.getElementById("text_firstName").value;
+            var lastName=document.getElementById("text_lastName").value;
+            var email=document.getElementById("text_email").value;
+            var gender=document.getElementById("text_gender").value;
+            var mobile=document.getElementById("text_mobile").value;
+
+            console.log("from updateInfo: "+firstName);
+            var userInfo=new BankApp.UserInfo(firstName,lastName,email,gender,mobile,tempIndex);
+            bankAdmin.updateInfo(tempIndex,userInfo);
+
+            clearForm();
+            closeForm();
+            loadgrid(bankAdmin.getCustomers());
+        }
 
     </script>
 
