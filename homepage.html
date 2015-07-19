@@ -17,7 +17,9 @@
             document.getElementById("editPanel").style.display="none";
 
             var userprofiles = bankAdmin.getCustomers();
+
             loadgrid(userprofiles);
+            CustomerId++;
 
 
         }
@@ -94,8 +96,8 @@
             var password=document.getElementById("txtpassword").value;
 
             var userProfiles = new BankApp.UserProfiles(username,password);
-
-            console.log(userProfiles);
+//
+//            console.log(userProfiles);
 
             bankAdmin.addNew(userProfiles);
             clearForm();

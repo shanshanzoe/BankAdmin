@@ -6,22 +6,41 @@
     <script src="jquery-1.11.3.min.js"></script>
     <script src="jquery-ui.min.js"></script>
     <script src="prototype.js"></script>
+    <script>
+        function validateUser(){
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username =="Admin"&& password=="Admin"){
+                sessionStorage["username"]=username;
+                location.href="homepage.html";
+            }else{
+                document.getElementById("message").innerHTML="Invalid Credentials";
+            }
+        }
+
+    </script>
 </head>
 
 <body>
 <div>
+    <form>
     <h1>Login</h1>
     <div>
         <label>username</label>&nbsp;&nbsp;
-        <input type="text"/>
+        <input type="text" id="username" required/>
     </div>
     <div>
         <label>password</label>&nbsp;&nbsp;
-        <input type="password"/>
+        <input type="password" id="password" required/>
     </div>
     <div>
-        <button type="button" onclick="location.href='homepage.html'">submit</button>
+        <button type="button" onclick="validateUser()">submit</button>
     </div>
+    <div>
+        <span id="message"></span>
+    </div>
+    </form>
 
 </div>
 

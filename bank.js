@@ -2,17 +2,16 @@
  * Created by shanshan on 7/17/15.
  */
 var BankApp={};//class
-var CustomerId;
-var index=0;
+var CustomerId=0;
+//var index=0;
 
 
 
 BankApp.UserProfiles = function UserProfiles(username, password){
-
     this.Username=username;
     this.Password=password;
-    this.CustomerId=index;
-    index++;
+    CustomerId++;
+    //index++;
 
 }
 
@@ -22,7 +21,7 @@ BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile, 
     this.Email=email;
     this.Gender=gender;
     this.Mobile=mobile;
-    this.UserId=customerId;
+    CustomerId=customerId;
 
 }
 
@@ -45,14 +44,17 @@ BankApp.BankAdmin= function BankAdmin(){
 
     function init(){
         var Admin = new BankApp.UserProfiles("Admin", "Admin",0);
+        BankApp.get
         userProfiles.push(Admin);
+
     }
     init();
 
     this.addNew=function(userProfile){
         userProfiles.push(userProfile);
-        var userInfo = new BankApp.UserInfo("","","","","",index);
-        customerInfos.push(userInfo);
+
+        //var userInfo = new BankApp.UserInfo("","","","","",index);
+        //customerInfos.push(userInfo);
         // I love you baby!!!!!!!!!
         // I love you!
         //customerInfos.push(customerInfo);
