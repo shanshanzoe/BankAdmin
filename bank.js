@@ -51,6 +51,7 @@ BankApp.BankAdmin= function BankAdmin(){
 
     this.addNew=function(userProfile){
         userProfiles.push(userProfile);
+        // I love you baby!!!!!!
         customerInfos.push(new UserInfo());
         //customerInfos.push(customerInfo);
     }
