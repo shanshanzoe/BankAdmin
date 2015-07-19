@@ -53,13 +53,14 @@ BankApp.BankAdmin= function BankAdmin(){
         index++;
 
     }
+    //init();
 
     if(localStorage["userProfiles"]==null||localStorage["userProfiles"]==undefined){
         init();
-        var userprofiles = bankAdmin.getCustomers();
-        localStorage["userProfiles"]=JSON.stringify(userprofiles);
-        var userInfos = bankAdmin.getCustomerInfos();
-        localStorage["userInfos"]=JSON.stringify(userInfos);
+        //var userprofiles = getCustomers();
+        localStorage["userProfiles"]=JSON.stringify(userProfiles);
+        //var userInfos = getCustomerInfos();
+        localStorage["userInfos"]=JSON.stringify(customerInfos);
     }else{
         userProfiles=JSON.parse(localStorage["userProfiles"]);
         customerInfos=JSON.parse(localStorage["userInfos"]);
