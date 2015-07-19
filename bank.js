@@ -3,13 +3,17 @@
  */
 var BankApp={};//class
 var CustomerId;
+var index=0;
 
 
 
-BankApp.UserProfiles = function UserProfiles(username, password, customerId){
+BankApp.UserProfiles = function UserProfiles(username, password){
+
     this.Username=username;
     this.Password=password;
-    this.CustomerId=customerId;
+    this.CustomerId=index;
+    index++;
+
 }
 
 BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile){
@@ -46,6 +50,18 @@ BankApp.BankAdmin= function BankAdmin(){
     this.addNew=function(userProfile, customerInfo){
         userProfiles.push(userProfile);
         customerInfos.push(customerInfo);
+    }
+
+    this.deleteItem = function(customerId){
+        var userProfile=null;
+        for(var i=0;i<userProfiles.length;i++){
+            if(userProfiles[i].CustomerId==customerId){
+                userProfile=userProfiles[i];
+                var index = userProfiles.indexOf(userProfile);
+                userProfiles.splice(index,1);
+                break;
+            }
+        }
     }
 
     this.createAccounts=function(checking, saving){
