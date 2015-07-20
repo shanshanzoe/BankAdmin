@@ -174,17 +174,20 @@
 
             clearAccount();
             closeAccount();
+
+            loadgrid(bankAdmin.getCustomers());
             loadaccounts(bankAdmin.getAccounts());
 
 
         }
 
         function loadaccounts(accounts){
+
             console.log("l");
             if(accounts.length>0) {
                 var table = "<table><tr><th>AccountId</th><th>AccountType</th><th>AccountBalance</th></tr>";
                 accounts.forEach(function(entry){
-                    table+="<tr><td>" +entry.AccountId+"</td><td>"+entry.Account.AccountType+"</td><td>"+entry.Account.Balance+"</td><td><a href='javascript:void(0)'onclick='deleteItem(" + entry.AccountId + ")'>Delete</a></td></tr>";
+                    table+="<tr><td>" +entry.AccountId+"</td><td>"+entry.Account.AccountType+"</td><td>"+entry.Account.Balance+"</td><td><a href='javascript:void(0)'onclick='deleteAccount(" + entry.AccountId + ")'>Delete</a></td></tr>";
                 });
                 table+="</table>";
                 document.getElementById("accounts").innerHTML = table;
@@ -212,17 +215,22 @@
 
     </div>
 
-</div>
-
-<div id="accountsgrid">
     <div>
         <p>Accounts Information</p>
+
+        <!--<div>-->
+            <!--<button type="button" onclick="location.href('homepage.html')">Return to Index</button>-->
+        <!--</div>-->
         <div id="accounts">
 
         </div>
 
-
     </div>
+
+</div>
+
+<div id="accountsgrid">
+
 
 </div>
 
