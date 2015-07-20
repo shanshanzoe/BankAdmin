@@ -26,9 +26,9 @@ BankApp.UserInfo= function UserInfo(firstName, lastName, email, gender, mobile, 
 
 }
 
-BankApp.Accounts= function Accounts(saving, checking){
-    this.Saving=saving;
-    this.Checking=checking;
+BankApp.Account= function Account(account, customerId){
+    this.Account=account;
+    this.AccountId=customerId;
 }
 
 BankApp.AccountDetails= function AccountDetails(accountNum, accountType, balance){
@@ -41,8 +41,7 @@ BankApp.AccountDetails= function AccountDetails(accountNum, accountType, balance
 BankApp.BankAdmin= function BankAdmin(){
     var userProfiles=[];
     var customerInfos=[];
-    var accountDetails=[];
-
+    var accounts=[];
 
 
     function init(){
@@ -51,12 +50,12 @@ BankApp.BankAdmin= function BankAdmin(){
         var AdminInfo=new BankApp.UserInfo("Shanshan", "Gao", "xiaosszoe@gmail.com", "F", "2152904505",index);
         customerInfos.push(AdminInfo);
         index++;
-
     }
     //init();
 
     if(localStorage["userProfiles"]==null||localStorage["userProfiles"]==undefined){
         init();
+        console.log("ssss");
         //var userprofiles = getCustomers();
         localStorage["userProfiles"]=JSON.stringify(userProfiles);
         //var userInfos = getCustomerInfos();
@@ -75,11 +74,6 @@ BankApp.BankAdmin= function BankAdmin(){
         localStorage["userProfiles"]=JSON.stringify(userProfiles);
         localStorage["userInfos"]=JSON.stringify(customerInfos);
 
-        //var userInfo = new BankApp.UserInfo("","","","","",index);
-        //customerInfos.push(userInfo);
-        // I love you baby!!!!!!!!!
-        // I love you!
-        //customerInfos.push(customerInfo);
     }
 
 
@@ -97,17 +91,30 @@ BankApp.BankAdmin= function BankAdmin(){
 
     }
 
-    this.createAccounts=function(checking, saving){
-        accountDetails.push(checking);
-        accountDetails.push(saving);
+
+    this.createChecking=function(checking, customerId){
+        var checkingAccount = new BankApp.Account(checking, customerId);
+        accounts.push(checkingAccount);
+        localStorage["accounts"]=JSON.stringify(accounts);
 
     }
+
+    this.createSaving=function(saving, customerId){
+        var savingAccount = new BankApp.Account(saving, customerId);
+        accounts.push(savingAccount);
+        localStorage["accounts"]=JSON.stringify(accounts);
+    }
+
     this.getCustomers = function(){
         return userProfiles;
     }
 
     this.getCustomerInfos=function(){
         return customerInfos;
+    }
+
+    this.getAccounts=function(){
+        return accounts;
     }
 
 

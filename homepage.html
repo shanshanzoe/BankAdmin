@@ -16,6 +16,8 @@
         window.onload=function(){
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="none";
+            document.getElementById("accountsPanel").style.display="none";
+            document.getElementById("accountsgrid").style.display="none";
 
             var userProfiles = bankAdmin.getCustomers();
 
@@ -51,22 +53,35 @@
 
         }
 
+
         function showForm(){
             document.getElementById("gridpanel").style.display="none";
             document.getElementById("formpanel").style.display="block";
             document.getElementById("editPanel").style.display="none";
+            document.getElementById("accountsPanel").style.display="none";
         }
 
         function showEditPanel(){
             document.getElementById("gridpanel").style.display="none";
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="block";
+            document.getElementById("accountsPanel").style.display="none";
+        }
+
+        ////create Accounts button
+        function showAccountsPanel(customerId){
+            tempIndex=customerId;
+            document.getElementById("gridpanel").style.display="none";
+            document.getElementById("formpanel").style.display="none";
+            document.getElementById("editPanel").style.display="none";
+            document.getElementById("accountsPanel").style.display="block";
         }
 
         function closeForm(){
             document.getElementById("gridpanel").style.display="block";
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="none";
+            document.getElementById("accountsPanel").style.display="none";
         }
 
         function clearForm(){
@@ -75,11 +90,27 @@
 
         }
 
+        function clearAccount(){
+            document.getElementById("type").value="";
+            document.getElementById("accountNum").value="";
+            document.getElementById("accountBalance").value="";
+        }
+
+        function closeAccount(){
+            document.getElementById("gridpanel").style.display="none";
+            document.getElementById("formpanel").style.display="none";
+            document.getElementById("editPanel").style.display="none";
+            document.getElementById("accountsPanel").style.display="none";
+            document.getElementById("accountsgrid").style.display="block";
+        }
+
+
+
         function loadgrid(userprofiles){
             if(userprofiles.length>0) {
                 var table = "<table><tr><th>Id</th><th>Username</th><th>Password</th><th>Action</th></tr>";
                 userprofiles.forEach(function(entry){
-                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)' onclick='editItem(" + entry.CustomerId + ")'>C-U Info</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
+                    table+="<tr><td>" +entry.CustomerId+"</td><td>"+entry.Username+"</td><td>"+entry.Password+"</td><td><a href='javascript:void(0)' onclick='editItem(" + entry.CustomerId + ")'>C-U Info</a>|<a href='javascript:void(0)'>View</a>|<a href='javascript:void(0)' onclick='showAccountsPanel("+entry.CustomerId+")'>Create Accounts</a>|<a href='javascript:void(0)'onclick='deleteItem(" + entry.CustomerId + ")'>Delete</a></td></tr>";
                 });
                 table+="</table>";
                 document.getElementById("grid").innerHTML = table;
@@ -125,9 +156,52 @@
             loadgrid(bankAdmin.getCustomers());
         }
 
+        function saveAccount(){
+
+            var type = document.getElementById("type").value;
+            var accountNum = document.getElementById("accountNum").value;
+            var accountBalance = document.getElementById("accountBalance").value;
+
+            var account = new BankApp.AccountDetails(accountNum, type, accountBalance);
+
+
+            if(type=="Saving"){
+                bankAdmin.createSaving(account, tempIndex);
+            }else{
+                bankAdmin.createChecking(account, tempIndex);
+            }
+
+
+            clearAccount();
+            closeAccount();
+            loadaccounts(bankAdmin.getAccounts());
+
+
+        }
+
+        function loadaccounts(accounts){
+            console.log("l");
+            if(accounts.length>0) {
+                var table = "<table><tr><th>AccountId</th><th>AccountType</th><th>AccountBalance</th></tr>";
+                accounts.forEach(function(entry){
+                    table+="<tr><td>" +entry.AccountId+"</td><td>"+entry.Account.AccountType+"</td><td>"+entry.Account.Balance+"</td><td><a href='javascript:void(0)'onclick='deleteItem(" + entry.AccountId + ")'>Delete</a></td></tr>";
+                });
+                table+="</table>";
+                document.getElementById("accounts").innerHTML = table;
+
+            }else{
+                document.getElementById("accounts").innerHTML="No Data";
+            }
+        }
+
+
+
+
     </script>
 
 </head>
+
+
 <body>
 <div id="gridpanel">
     <div>
@@ -138,7 +212,17 @@
 
     </div>
 
+</div>
 
+<div id="accountsgrid">
+    <div>
+        <p>Accounts Information</p>
+        <div id="accounts">
+
+        </div>
+
+
+    </div>
 
 </div>
 
@@ -156,7 +240,7 @@
             <input type="password" id="txtpassword"/>
         </div>
         <div id="isSaving">
-            <button type="button" onclick="createNew()">Create</button>
+            <button type="button" onclick="createNew()">Create New</button>
             <button type="button" onclick="closeForm()">Cancel</button>
         </div>
 
@@ -197,6 +281,31 @@
             <button type="button" onclick="closeForm()">Cancel</button>
         </div>
 
+    </form>
+</div>
+
+<div id="accountsPanel">
+    <form>
+        <div>
+            <label>Account Type</label>
+            <input type="text" id="type" list="types" />
+            <datalist id="types">
+                <option>Saving</option>
+                <option>Checking</option>
+            </datalist>
+        </div>
+        <div>
+            <label>Account Number</label>
+            <input type="text" id="accountNum"/>
+        </div>
+        <div>
+            <label>Account Balance</label>
+            <input type="text" id="accountBalance"/>
+        </div>
+        <div>
+            <button type="button" onclick="saveAccount()">Save Account</button>
+            <button type="button" onclick="closeForm()">Cancel</button>
+        </div>
     </form>
 </div>
 
