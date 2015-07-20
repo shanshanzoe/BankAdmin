@@ -2,9 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Welcome!</title>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="prototype.js"></script>
+    <script src="bank.js"></script>
+    <script>
+
+        var bankAdmin = new BankApp.BankAdmin();
+        var profile_id = JSON.parse(localStorage["temp_id"]);
+
+        var profiles = bankAdmin.getCustomers();
+        var userinfos = bankAdmin.getCustomerInfos();
+        var accounts = bankAdmin.getAccounts();
+
+        var profile;
+        for(var i = 0; i<profiles.length; i++){
+            if(profiles[i].CustomerId==profile_id){
+                profile = profiles[i];
+                break;
+            }
+        }
+
+        var userinfo;
+        for(var i= 0; i<userinfos.length; i++){
+            if(userinfos[i].UserInfoId==profile_id){
+                userinfo=userinfos[i];
+                break;
+            }
+        }
+
+        var account;
+        for(var i=0; i<accounts.length; i++){
+            if(accounts[i].AccountId==profile_id){
+                account=userinfos[i];
+            }
+        }
+
+
+
+
+        $(document).ready(function(){
+
+            $("#lastname").values=p;
+
+        });
+
+
+
+
+    </script>
 </head>
 <body>
+<div>
+    <h3>My Basic Info</h3><br>
+    <div id="basicInfo">
+        <span id="lastname">Last Name</span><br>
+        <span id="firstname">First Name</span><br>
+        <span id="gender">Gender</span><br>
+        <span id="email">Email</span><br>
+        <span id="mobile">Mobile</span><br>
+    </div>
+
+</div>
 
 </body>
 </html>

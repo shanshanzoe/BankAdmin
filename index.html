@@ -21,17 +21,24 @@
 
            // var profiles=JSON.parse(localStorage["userProfiles"]);
             var profiles=bankAdmin.getCustomers();
+            var userinfo=bankAdmin.getCustomerInfos();
             console.log(profiles.length);
 
 
             for(var i=0;i<profiles.length;i++){
-                var admin_username= profiles[i].Username;
-                var admin_password = profiles[i].Password;
-                if(username==admin_username&&password==admin_password){
+                var i_username= profiles[i].Username;
+                var i_password = profiles[i].Password;
+                if(username==i_username&&password==i_password){
                     if(i==0)
                     location.href="homepage.html";
-                    else
-                    location.href="customerhomepage.html";
+                    else {
+                        location.href = "customerhomepage.html";
+//                        for(var j= 0; j<userinfo.length;j++) {
+//                            if(userinfo[j].UserInfoId==profiles[i].CustomerId)
+                            localStorage["temp_id"] = JSON.stringify(profiles[i].CustomerId);
+//                            localStorage["temp_userinfo"]=JSON.stringify(userinfo[j]);
+                        }
+                    }
 
                     break;
                 }else{
