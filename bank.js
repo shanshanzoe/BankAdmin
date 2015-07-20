@@ -95,14 +95,18 @@ BankApp.BankAdmin= function BankAdmin(){
     this.createChecking=function(checking, customerId){
         var checkingAccount = new BankApp.Account(checking, customerId);
         accounts.push(checkingAccount);
+
         localStorage["accounts"]=JSON.stringify(accounts);
+
 
     }
 
     this.createSaving=function(saving, customerId){
         var savingAccount = new BankApp.Account(saving, customerId);
         accounts.push(savingAccount);
+
         localStorage["accounts"]=JSON.stringify(accounts);
+        console.log("lulu");
     }
 
     this.getCustomers = function(){

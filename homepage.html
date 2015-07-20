@@ -14,16 +14,29 @@
         var tempIndex;
 
         window.onload=function(){
+
+            document.getElementById("gridpanel").style.display="block";
             document.getElementById("formpanel").style.display="none";
             document.getElementById("editPanel").style.display="none";
             document.getElementById("accountsPanel").style.display="none";
-//            document.getElementById("accountsgrid").style.display="none";
+            document.getElementById("accountsgrid").style.display="block";
+
+
+            document.getElementById("anonymouspanel").style.display = "none";
+            document.getElementById("loggedpanel").style.display = "block";
+            document.getElementById("lbluser").innerHTML = sessionStorage["username"];
+
+            document.getElementById("loginlink").style.display = "none";
+
+
+
 
             var userProfiles = bankAdmin.getCustomers();
+            var accounts = bankAdmin.getAccounts();
 
             loadgrid(userProfiles);
-            loadaccounts(bankAdmin.getAccounts());
-            CustomerId++;
+            loadaccounts(accounts);
+//            CustomerId++;
 
 
         }
@@ -33,6 +46,7 @@
             bankAdmin.deleteItem(customerId);
             clearForm();
             closeForm();
+
             loadgrid(bankAdmin.getCustomers());
         }
 
@@ -169,6 +183,7 @@
 
             if(type=="Saving"){
                 bankAdmin.createSaving(account, tempIndex);
+
             }else{
                 bankAdmin.createChecking(account, tempIndex);
             }
@@ -212,6 +227,26 @@
 
 
 <body>
+
+<section id="header"><br>
+
+        <div style="float:right;">
+            <span id="anonymouspanel">
+                [Welcome Guest!][<a href="login.html">Login</a>]
+            </span>
+            <span id="loggedpanel" style="display:none;">
+                [Welcome <span id="lbluser"></span><a href="index.html">logout</a> ]
+                <!--<a href='javascript:void(0)' onclick="logout()">logout</a>-->
+            </span>
+        </div>
+        <nav style="float:left;">
+            <a href="login.html" id="loginlink">Login</a>
+            <!--<a href="index.html">Home</a>-->
+        </nav>
+
+</section>
+
+<section id="content">
 <div id="gridpanel">
     <div>
         <p>Create A Customer </p>
@@ -316,7 +351,7 @@
         </div>
     </form>
 </div>
-
+</section>
 
 
 

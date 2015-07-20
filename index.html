@@ -10,48 +10,52 @@
 
     <script>
 
-        localStorage.clear();
+//        localStorage.clear();
         var bankAdmin = new BankApp.BankAdmin();
 
-        function validateUser(){
-            console.log("w");
+        function validateUser() {
+
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
 
 
-           // var profiles=JSON.parse(localStorage["userProfiles"]);
-            var profiles=bankAdmin.getCustomers();
-            var userinfo=bankAdmin.getCustomerInfos();
+            var profiles = JSON.parse(localStorage["userProfiles"]);
+//            var profiles=bankAdmin.getCustomers();
+
             console.log(profiles.length);
+            var flag;
 
-
-            for(var i=0;i<profiles.length;i++){
-                var i_username= profiles[i].Username;
+            for (var i = 0; i < profiles.length; i++) {
+                var i_username = profiles[i].Username;
                 var i_password = profiles[i].Password;
-                if(username==i_username&&password==i_password){
-                    if(i==0)
-                    location.href="homepage.html";
-                    else {
-                        location.href = "customerhomepage.html";
-//                        for(var j= 0; j<userinfo.length;j++) {
-//                            if(userinfo[j].UserInfoId==profiles[i].CustomerId)
-                            localStorage["temp_id"] = JSON.stringify(profiles[i].CustomerId);
-//                            localStorage["temp_userinfo"]=JSON.stringify(userinfo[j]);
-                        }
-                    }
 
-                    break;
-                }else{
-                    alert("username or password error!");
+
+                if (username == i_username && password == i_password) {
+                    flag = 1;
+                    if (i == 0) {
+                        sessionStorage["username"] = JSON.stringify(username);
+                        location.href = "homepage.html";
+                    } else {
+                        sessionStorage["temp_id"] = JSON.stringify(profiles[i].CustomerId);
+                        location.href = "customerhomepage.html";
+
+                    }
+                } else {
+                    flag = 0;
                 }
             }
-
-            console.log(admin_password,admin_username);
-
-
-
-            
+            if (flag == 0) {
+                alert("Invalid Credentials");
             }
+
+
+            }
+
+
+
+
+
+
 
 
 
