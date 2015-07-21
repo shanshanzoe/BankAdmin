@@ -63,6 +63,9 @@ BankApp.BankAdmin= function BankAdmin(){
     }else{
         userProfiles=JSON.parse(localStorage["userProfiles"]);
         customerInfos=JSON.parse(localStorage["userInfos"]);
+        accounts=JSON.parse(localStorage["accounts"]);
+
+
         index=userProfiles.length;
     }
 
@@ -141,10 +144,7 @@ BankApp.Customer = function Customer(){
 
 
 
-BankApp.Common = function Common (){
 
-
-}
 
 
 }

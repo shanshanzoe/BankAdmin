@@ -16,19 +16,19 @@
         var profile_id = JSON.parse(sessionStorage["temp_id"]);
         console.log(profile_id);
 
-        var profiles = JSON.parse(localStorage["userProfiles"]);
-        var userinfos = JSON.parse(localStorage["userInfos"]);
-        var accounts = JSON.parse(localStorage["accounts"]);
-//        var profiles = bankAdmin.getCustomers();
-//        var userinfos = bankAdmin.getCustomerInfos();
-//        var accounts = bankAdmin.getAccounts();
+//        var profiles = JSON.parse(localStorage["userProfiles"]);
+//        var userinfos = JSON.parse(localStorage["userInfos"]);
+//        var accounts = JSON.parse(localStorage["accounts"]);
+        var profiles = bankAdmin.getCustomers();
+        var userinfos = bankAdmin.getCustomerInfos();
+        var accounts = bankAdmin.getAccounts();
 
 
         window.onload=function(){
 
             showInfo();
             showAccounts();
-            console.log("log1");
+
 
         }
 
@@ -48,7 +48,6 @@
 //        }
 
         function showInfo() {
-            console.log("fsff");
 
             var userinfo;
             for(var i= 0; i<userinfos.length; i++){
@@ -65,22 +64,32 @@
         }
 
         function showAccounts(){
-
             var saving;
             var checking;
-            for(var i= 0;i<accounts.length; i++){
+//            var account;
+
+            for(var i= 0;i<=accounts.length; i++) {
+
+
+//                var shanshan= accounts[1].Account.AccountNum;
+//                var shanshan = accounts[1].AccountId;
+//                console.log(shanshan);
                 if(accounts[i].AccountId==profile_id){
+//                    console.log(accounts[i].AccountId);
+
                     if(accounts[i].AccountType == "Saving"){
                     saving=accounts[i];
+                        console.log("sssssss");
                     }else{
                         checking=accounts[i];
-                    }
+                     }
+                    break;
+
+                    }else{
+                    alert("Invalid Credentials");
                 }
 
             }
-            console.log(saving+"1");
-//            document.getElementById("saving").value = account.AccountId;
-//            document.getElementById("checking").value = account.Account.AccountDetails;
 
         }
 

@@ -175,6 +175,7 @@
         function saveAccount(){
 
             var type = document.getElementById("type").value;
+            console.log("save account:"+type);
             var accountNum = document.getElementById("accountNum").value;
             var accountBalance = document.getElementById("accountBalance").value;
 
@@ -183,6 +184,7 @@
 
             if(type=="Saving"){
                 bankAdmin.createSaving(account, tempIndex);
+                console.log("1243658679809-9");
 
             }else{
                 bankAdmin.createChecking(account, tempIndex);
